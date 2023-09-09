@@ -1,4 +1,13 @@
-from .logical import LogicalBase
+from .logical import LogicalBase, ValueRef
+
+
+class BinaryNode:
+    pass
+
+
+class BinaryNodeRef(ValueRef):
+    pass
+
 
 class BinaryTree(LogicalBase):
     def _get(self, node, key):
