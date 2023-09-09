@@ -1,11 +1,15 @@
-class LogicalBase(object):
+class ValueRef:
+    pass
+
+
+class LogicalBase:
 
     def get(self, key):
         if not self._storage.locked:
             self._refresh_tree_ref()
         return self._get(self._follow(self._tree_ref), key)
 
-    def set(self, key,value):
+    def set(self, key, value):
         if self._storage.lock():
             self._refresh_tree_ref()
         self._tree_ref = self._insert(
