@@ -15,6 +15,10 @@ class FBDB:
         self._assert_not_closed()
         return self._tree.set(key, value)
 
+    def commit(self):
+        self._tree_ref.store(self._storage)
+        self._storage.commit_root_address(self._tree_ref.address)
+
     def _assert_not_closed(self):
         if self._storage.closed:
             raise ValueError('Database closed.')
