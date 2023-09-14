@@ -1,6 +1,7 @@
 import os
 import portalocker
 
+
 class Storage:
     SUPERBLOCK_SIZE = 4096
 
@@ -11,6 +12,7 @@ class Storage:
 
     def _seek_end(self):
         self._f.seek(0, os.SEEK_END)
+
     def _ensure_superblock(self):
         self.lock()
         self._seek_end()
@@ -40,3 +42,7 @@ class Storage:
         self._write_integer(root_address)
         self._f.flush()
         self.unlock()
+
+    def _get_all_contents(self):
+        return b'\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF' + (
+                    b'\x00' * (Storage.SUPERBLOCK_SIZE - 8)) + b"\x00\x00\x00\x00\x00\x00\x00\x05ABCDE"
