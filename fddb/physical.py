@@ -44,5 +44,4 @@ class Storage:
         self.unlock()
 
     def _get_all_contents(self):
-        return b'\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF' + (
-                    b'\x00' * (Storage.SUPERBLOCK_SIZE - 8)) + b"\x00\x00\x00\x00\x00\x00\x00\x05ABCDE"
+        return self._f.read()
