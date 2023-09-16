@@ -44,4 +44,7 @@ class Storage:
         self.unlock()
 
     def _get_all_contents(self):
+        self._seek_end()
+        self._f.flush()
+        self._f.seek(0)
         return self._f.read()
