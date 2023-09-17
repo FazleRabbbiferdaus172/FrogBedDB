@@ -43,6 +43,9 @@ class Storage:
         self._f.flush()
         self.unlock()
 
+    def write(self, data):
+        self._f.write(data)
+
     def _get_all_contents(self):
         self._seek_end()
         self._f.flush()
