@@ -1,9 +1,12 @@
 import os
 import portalocker
+import struct
 
 
 class Storage:
     SUPERBLOCK_SIZE = 4096
+    INTEGER_FORMAT = "!Q"
+    INTEGER_LENGHT = 8
 
     def __init__(self, f):
         self._f = f
@@ -43,7 +46,21 @@ class Storage:
         self._f.flush()
         self.unlock()
 
+    def _integer_to_formatted_byte(self, value):
+        return struct.pack(self.INTEGER_FORMAT, value)
+
+    def _write_integer(self, value):
+        self.lock()
+        self._f.write(self._integer_to_formatted_byte(value))
+
+    def _write_data_length(self, data):
+        self._write_integer(len(data))
+
     def write(self, data):
+        self.lock()
+        self._seek_end()
+        address = self._f.tell()
+        self._write_data_length(data)
         self._f.write(data)
 
     def _get_all_contents(self):
