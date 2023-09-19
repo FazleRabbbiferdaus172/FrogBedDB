@@ -62,6 +62,17 @@ class Storage:
         address = self._f.tell()
         self._write_data_length(data)
         self._f.write(data)
+        return address
+
+    def read(self, address=0):
+        self._seek_end()
+        self._f.flush()
+        # read the lenght of the data
+        self._f.seek(address)
+        formated_lenght_bytes = self._f.read(self.INTEGER_LENGHT)
+        lenght_value = struct.unpack(self.INTEGER_FORMAT, formated_lenght_bytes)[0]
+        # start reading after the lenght of data info end till the lenght of data
+        return self._f.read(lenght_value)
 
     def _get_all_contents(self):
         self._seek_end()
