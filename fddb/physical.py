@@ -13,6 +13,10 @@ class Storage:
         self.locked = False
         self._ensure_superblock()
 
+    @property
+    def closed(self):
+        return self._f.closed
+
     def _seek_end(self):
         self._f.seek(0, os.SEEK_END)
 
@@ -88,3 +92,7 @@ class Storage:
         formated_lenght_bytes = self._f.read(self.INTEGER_LENGHT)
         integer = struct.unpack(self.INTEGER_FORMAT, formated_lenght_bytes)[0]
         return integer
+
+    def close(self):
+        self.unlock()
+        self._f.close()
