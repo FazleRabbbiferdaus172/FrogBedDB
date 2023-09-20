@@ -38,6 +38,9 @@ class Storage:
         else:
             return False
 
+    def _seek_superblock(self):
+        pass
+
     def commit_root_address(self, root_address):
         self.lock()
         self._f.flush()
