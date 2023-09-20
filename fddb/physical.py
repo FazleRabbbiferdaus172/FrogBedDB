@@ -82,3 +82,9 @@ class Storage:
         self._f.flush()
         self._f.seek(0)
         return self._f.read()
+
+    def get_root_address(self):
+        self._seek_superblock()
+        formated_lenght_bytes = self._f.read(self.INTEGER_LENGHT)
+        integer = struct.unpack(self.INTEGER_FORMAT, formated_lenght_bytes)[0]
+        return integer
