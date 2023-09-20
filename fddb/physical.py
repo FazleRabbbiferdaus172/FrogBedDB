@@ -39,7 +39,7 @@ class Storage:
             return False
 
     def _seek_superblock(self):
-        pass
+        self._f.seek(0)
 
     def commit_root_address(self, root_address):
         self.lock()
