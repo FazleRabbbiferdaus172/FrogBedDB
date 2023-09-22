@@ -1,8 +1,18 @@
 class ValueRef:
-    _address = None
+    def __init__(self, referent=None, address=None):
+        self._referent = referent
+        self._address = address
+
+    def referent_to_string(self, value):
+        return value.encode('utf-8')
+
+    def string_to_referent(self, value):
+        return  value.decode('utf-8')
 
     def get(self, storage):
-        return storage.read(self._address).decode()
+        if not self._referent and self._address:
+            self._referent = self.string_to_referent(storage.read(self._address))
+        return self._referent
 
     def store(self, storage):
         if self._referent is not None and not self._address:
