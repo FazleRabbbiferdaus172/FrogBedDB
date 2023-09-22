@@ -3,6 +3,13 @@ class ValueRef:
         self._referent = referent
         self._address = address
 
+    @property
+    def address(self):
+        return self._address
+
+    def prepare_to_store(self, storage):
+        pass
+
     def referent_to_string(self, value):
         return value.encode('utf-8')
 
