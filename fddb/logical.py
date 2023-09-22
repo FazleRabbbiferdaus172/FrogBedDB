@@ -1,7 +1,8 @@
 class ValueRef:
+    _address = None
 
-    def get(self):
-        return 0
+    def get(self, storage):
+        return storage.read(self._address).decode()
 
     def store(self, storage):
         if self._referent is not None and not self._address:
