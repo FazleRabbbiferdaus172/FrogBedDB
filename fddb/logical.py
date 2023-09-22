@@ -1,5 +1,5 @@
 class ValueRef:
-    def __init__(self, referent=None, address=None):
+    def __init__(self, referent=None, address=0):
         self._referent = referent
         self._address = address
 
