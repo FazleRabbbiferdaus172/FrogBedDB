@@ -28,6 +28,10 @@ class ValueRef:
 
 class LogicalBase:
 
+    def __init__(self, storage):
+        self._storage = storage
+        self.node_ref_class = None
+
     def get(self, key):
         if not self._storage.locked:
             self._refresh_tree_ref()
@@ -44,3 +48,7 @@ class LogicalBase:
         self._tree_ref = self.node_ref_class(
             address=self._storage.get_root_address()
         )
+
+    def _follow(self, ref):
+        value = ref.get(self._storage)
+        return value
