@@ -31,6 +31,7 @@ class LogicalBase:
     def __init__(self, storage):
         self._storage = storage
         self.node_ref_class = None
+        self.value_ref_class = ValueRef
 
     def get(self, key):
         if not self._storage.locked:
@@ -41,7 +42,7 @@ class LogicalBase:
         if self._storage.lock():
             self._refresh_tree_ref()
         self._tree_ref = self._insert(
-            self._follow(self._tree_ref), key, self.value_ref_calss(value)
+            self._follow(self._tree_ref), key, self.value_ref_class(value)
         )
 
     def _refresh_tree_ref(self):

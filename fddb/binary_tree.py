@@ -43,7 +43,7 @@ class BinaryTree(LogicalBase):
 
     def _insert(self, node, key, value_ref):
         if node is None:
-            new_node = BinaryNode(self.node_ref_class(), key, value_ref, self.node_ref_calss(), 1)
+            new_node = BinaryNode(self.node_ref_class(), key, value_ref, self.node_ref_class(), 1)
         elif key < node.key:
             new_node = BinaryNode.from_node(
                 node,
