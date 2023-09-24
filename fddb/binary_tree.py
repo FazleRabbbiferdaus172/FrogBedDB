@@ -1,5 +1,5 @@
 from .logical import LogicalBase, ValueRef
-
+import pickle
 
 class BinaryNode:
     def store_refs(self, storage):
@@ -26,6 +26,11 @@ class BinaryNodeRef(ValueRef):
 
 
 class BinaryTree(LogicalBase):
+
+    def __init__(self, storage):
+        super().__init__(storage)
+        self.node_ref_class = BinaryNodeRef
+
     def _get(self, node, key):
         while node is not None:
             if key < node.key:
