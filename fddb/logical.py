@@ -14,7 +14,7 @@ class ValueRef:
         return value.encode('utf-8')
 
     def string_to_referent(self, value):
-        return  value.decode('utf-8')
+        return value.decode('utf-8')
 
     def get(self, storage):
         if not self._referent and self._address:
@@ -53,3 +53,7 @@ class LogicalBase:
     def _follow(self, ref):
         value = ref.get(self._storage)
         return value
+
+    def commit(self):
+        self._tree_ref.store(self._storage)
+        self._storage.commit_root_address(self._tree_ref.address)
