@@ -58,10 +58,10 @@ class BinaryNodeRef(ValueRef):
 
 
 class BinaryTree(LogicalBase):
+    node_ref_class = BinaryNodeRef
 
     def __init__(self, storage):
         super().__init__(storage)
-        self.node_ref_class = BinaryNodeRef
 
     def _get(self, node, key):
         while node is not None:

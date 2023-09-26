@@ -26,12 +26,13 @@ class ValueRef:
             self.prepare_to_store(storage)
             self._address = storage.write(self.referent_to_string(self._referent))
 
+
 class LogicalBase:
+    node_ref_class = None
+    value_ref_class = ValueRef
 
     def __init__(self, storage):
         self._storage = storage
-        self.node_ref_class = None
-        self.value_ref_class = ValueRef
 
     def get(self, key):
         if not self._storage.locked:
