@@ -41,7 +41,6 @@ class BinaryNodeRef(ValueRef):
             return self._referent.length
         else:
             return 0
-
     @staticmethod
     def referent_to_string(referent):
         return pickle.dumps({
@@ -55,6 +54,17 @@ class BinaryNodeRef(ValueRef):
     def prepare_to_store(self, storage):
         if self._referent:
             self._referent.store_refs(storage)
+
+    @staticmethod
+    def string_to_referent(string):
+        d = pickle.loads(string)
+        return BinaryNode(
+            BinaryNodeRef(address=d['left']),
+            d['key'],
+            ValueRef(address=d['value']),
+            BinaryNodeRef(address=d['right']),
+            d['length'],
+        )
 
 
 class BinaryTree(LogicalBase):
